@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="imagem/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,32 +19,44 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 </head>
+<style>
+body {
+    color: white;
+}
 
-<body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()">
+.dash {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex-colunar {
+    display: flex;
+    flex-direction: column;
+}
+
+</style>
+
+<body onload="validarSessao(), onloadEsconder()">
 
     <div class="janela">
 
         <div class="header-left dash-header">
 
-            <h1>AquaTech</h1>
+            <h1>PokeMania</h1>
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
             <div class="btn-nav">
-                <h3>Aquários</h3>
+                <h3>Quiz</h3>
             </div>
 
             <div class="btn-nav-white">
                 <a href="./dashboard.html">
                     <h3>Gráficos</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
                 </a>
             </div>
 
@@ -55,39 +67,49 @@
         </div>
 
         <div class="dash">
-            <div id="alerta">
-            </div>
-            <div class="area-parametros-alerta">
-                <p class="titulo-legenda">
-                    Legenda - Parâmetros para Alertas
-                </p>
-                <div class="parametros-alerta">
-                    <div class="item-regua perigo-frio">
-                        <p>Perigo</p>
-                        <p>&lt;=5°C</p>
-                    </div>
-                    <div class="item-regua alerta-frio">
-                        <p>Alerta</p>
-                        <p>&lt;=10°C</p>
-                    </div>
-                    <div class="item-regua ideal">
-                        <p>Ideal</p>
-                        <p>20°C</p>
-                    </div>
-                    <div class="item-regua alerta-quente">
-                        <p>Alerta</p>
-                        <p>&gt;=22°C</p>
-                    </div>
-                    <div class="item-regua perigo-quente">
-                        <p>Perigo</p>
-                        <p>&gt;=23°C</p>
-                    </div>
+            <h1>Quiz Pokémon - Primeira Geração</h1>
+            <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+            <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+
+                <div id="infoQuestao" class="padding-8">
+                    <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span> questões.</span>
+                </div>
+
+                <div id="questao" class="padding-8">
+                    <span id="spanQuestaoExibida" style="font-size: 18px; font-weight: bold;"></span>
+                    <img id="imagem" src="" alt="Imagem do Pokémon" style="width: 100px; height: 100px;">
+                </div>
+
+                <div id="opcoes" class="flex-colunar padding-8">
+                    <span>
+                        <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
+                        <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+                    </span>
+                    <span>
+                        <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
+                        <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+                    </span>
+                    <span>
+                        <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
+                        <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+                    </span>
+                    <span>
+                        <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
+                        <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+                    </span>
                 </div>
             </div>
 
-            <div class="cards" id="cardAquarios">
+            <div id="botoes" class="flex-colunar padding-8">
+                <button onclick="verificar()" id="btnVerificar">Verificar resposta</button>
+                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+                <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
+                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+            </div>
 
             </div>
+
 
         </div>
 
@@ -97,22 +119,252 @@
 
 <script>
 
-    function exibirAquarios() {
-        JSON.parse(sessionStorage.AQUARIOS).forEach(item => {
-            document.getElementById("cardAquarios").innerHTML += `
-                    <div class="card-aquario">
-                        <div class="title-aquario">
-                            <h1>${item.descricao}</h1>
-                        </div>
-                        <div class="desc-aquario">
-                        <div class="temperatura">
-                            <p id="temp_aquario_${item.id}">-°C</p>
-                        </div>
-                        <div class="cor-alerta" id="card_${item.id}"></div>
-                    </div>
-                    </div>
-                    `
-        });
+    const questoes = [
+       {
+        pergunta: "Quem é esse Pokémon?",
+        imagem: "../assets/arts/25.png",
+        alternativaA: "Raichu",
+        alternativaB: "Pikachu",
+        alternativaC: "Mew",
+        alternativaD: "Sandshrew",
+        alternativaCorreta: "alternativaB"
+      },
+      {
+        pergunta: "Qual é o tipo do Butterfree?",
+        imagem: null,
+        alternativaA: "Venenoso / Psíquico",
+        alternativaB: "Inseto / Voador",
+        alternativaC: "Planta / Voador",
+        alternativaD: "Água / Inseto",
+        alternativaCorreta: "alternativaB"
+      },
+      {
+        pergunta: "Qual Pokémon o Poliwag se torna ao evoluir?",
+        imagem: null,
+        alternativaA: "Tentacool",
+        alternativaB: "Slowpoke",
+        alternativaC: "Goldeen",
+        alternativaD: "Poliwhirl",
+        alternativaCorreta: "alternativaD"
+      },
+      {
+        pergunta: "Quem é esse Pokémon?",
+        imagem: "./assets/arts/143.png",
+        alternativaA: "Golem",
+        alternativaB: "Muk",
+        alternativaC: "Snorlax",
+        alternativaD: "Machamp",
+        alternativaCorreta: "alternativaC"
+      },
+      {
+        pergunta: "Qual é o tipo do Gyarados?",
+        imagem: null,
+        alternativaA: "Água / Dragão",
+        alternativaB: "Água / Voador",
+        alternativaC: "Água / Pedra",
+        alternativaD: "Dragão / Sombrio",
+        alternativaCorreta: "alternativaB"
+      },
+      {
+        pergunta: "Qual Pokémon o Charmander se torna ao evoluir?",
+        imagem: null,
+        alternativaA: "Charmeleon",
+        alternativaB: "Charizard",
+        alternativaC: "Magmar",
+        alternativaD: "Moltres",
+        alternativaCorreta: "alternativaA"
+      },
+      {
+        pergunta: "Quem é esse Pokémon?",
+        imagem: "./assets/arts/6.png",
+        alternativaA: "Charizard",
+        alternativaB: "Arcanine",
+        alternativaC: "Dragonite",
+        alternativaD: "Aerodactyl",
+        alternativaCorreta: "alternativaA"
+      },
+      {
+        pergunta: "Qual desses Pokémon foi o primeiro criado pela equipe de desenvolvimento?",
+        imagem: null,
+        alternativaA: "Mew",
+        alternativaB: "Bulbasaur",
+        alternativaC: "Pikachu",
+        alternativaD: "Rhydon",
+        alternativaCorreta: "alternativaD"
+      },
+      {
+        pergunta: "Quem é esse Pokémon?",
+        imagem: "./assets/arts/39.png",
+        alternativaA: "Clefairy",
+        alternativaB: "Jigglypuff",
+        alternativaC: "Chansey",
+        alternativaD: "Wigglytuff",
+        alternativaCorreta: "alternativaB"
+      },
+      {
+        pergunta: "Qual objeto aparece no microfone da Jigglypuff quando ela canta?",
+        imagem: null,
+        alternativaA: "Togepi",
+        alternativaB: "Chansey",
+        alternativaC: "Clefairy",
+        alternativaD: "Pokébola",
+        alternativaCorreta: "alternativaD"
+      }
+    ];
+
+    // variáveis globais    
+    var numeroDaQuestaoAtual = 0;
+    var pontuacaoFinal = 0;
+    var tentativaIncorreta = 0;
+    var certas = 0;
+    var erradas = 0;
+    var qtdQuestoes = questoes.length;
+
+    function onloadEsconder() {
+        document.getElementById('pontuacao').style.display = "none";
+        document.getElementById('jogo').style.display = "none";
+    }
+
+    function iniciarQuiz() {
+        document.getElementById('jogo').style.display = "flex";
+        document.getElementById('btnIniciarQuiz').style.display = "none";
+
+        document.getElementById('qtdQuestoes').innerHTML = qtdQuestoes;
+
+        preencherHTMLcomQuestaoAtual(0);
+
+        btnVerificar.disabled = false;
+        btnProx.disabled = true;
+        // btnConcluir.disabled = true;
+        btnTentarNovamente.disabled = true;
+
+        console.log(questoes)
+    }
+
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true);
+        const questaoAtual = questoes[index];
+        numeroDaQuestaoAtual = index;
+        console.log("questaoAtual");
+        console.log(questaoAtual);
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1; // ajustando porque o index começa em 0
+        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.imagem;
+        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+        document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+        document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+        document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+    }
+
+    function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+
+    }
+
+     function verificar() {
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let hasChecked = false
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+                hasChecked = true
+                break
+            }
+        }
+
+        if (!hasChecked) {
+            alert("Não há alternativas escolhidas. Escolha uma opção.")
+        } else {
+            btnVerificar.disabled = true
+            btnProx.disabled = false
+
+            habilitarAlternativas(false)
+
+            checarResposta()
+        }
+    }
+
+    function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+
+    }
+
+    function limparCoresBackgroundOpcoes() {
+        const options = document.getElementsByName("option");
+        options.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+        })
+    }
+
+    function desmarcarRadioButtons() {
+        const options = document.getElementsByName("option");
+        for (let i = 0; i < options.length; i++) {
+            options[i].checked = false;
+        }
+    }
+
+    function checarResposta() {
+        const questaoAtual = questoes[numeroDaQuestaoAtual] // questão atual 
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let alternativaCorreta = null // variável para armazenar a alternativa correta
+
+        options.forEach((option) => {
+            if (option.value === respostaQuestaoAtual) {
+                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
+                alternativaCorreta = option.labels[0].id
+            }
+        })
+
+        // verifica se resposta assinalada é correta
+        options.forEach((option) => {
+            if (option.checked === true && option.value === respostaQuestaoAtual) {
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                pontuacaoFinal++
+                certas++
+                document.getElementById("spanCertas").innerHTML = certas
+                numeroDaQuestaoAtual++
+            } else if (option.checked && option.value !== respostaQuestaoAtual) {
+                const wrongLabelId = option.labels[0].id
+
+                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                tentativaIncorreta++
+                erradas++
+                document.getElementById("spanErradas").innerHTML = erradas
+                numeroDaQuestaoAtual++
+            }
+        })
+    }
+
+    function avancar() {
+        btnProx.disabled = true
+        btnVerificar.disabled = false
+
+        desmarcarRadioButtons()
+
+        if (numeroDaQuestaoAtual < qtdQuestoes - 1) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else if (numeroDaQuestaoAtual == qtdQuestoes - 1) {
+            alert("Atenção... a próxima é a ultima questão!")
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else {
+            finalizarJogo()
+        }
+        limparCoresBackgroundOpcoes()
     }
 
 </script>

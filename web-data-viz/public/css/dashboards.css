@@ -348,7 +348,7 @@ canvas {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-right: 3px solid #32b9cd;
+  border-right: 3px solid #FFDA63;
   background-color: #212124;
 }
 
@@ -365,7 +365,7 @@ canvas {
 }
 
 .header-left h1 {
-  color: #32b9cd;
+  color: #FFDA63;
 }
 
 .hello {
