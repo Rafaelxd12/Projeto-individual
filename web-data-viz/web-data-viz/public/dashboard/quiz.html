@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Tempo Real</title>
+    <title>PokeMania | Quiz</title>
 
-
+    <link rel="icon" href="../assets/icon/favicon.ico">
     <link rel="stylesheet" href="./../css/dashboards.css">
     <link rel="stylesheet" href="./../css/estilo.css" />
 
-    <!-- <script src="../js/sessao.js"></script> -->
+    <script src="../js/sessao.js"></script>
     <script src="../js/alerta.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -34,16 +34,47 @@ body {
 .flex-colunar {
     display: flex;
     flex-direction: column;
+}
+
+.botoes {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
     display: none;
+    width: 350px;
+    justify-content: space-evenly;
 }
 
 </style>
 
 <body onload="validarSessao(), onloadEsconder()">
 
+    <!--Header-->
+
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">PokeMania</h1>
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+            <ul class="navbar">
+                <li class="agora">
+                    <a href="#">Quiz</a>
+                </li>
+                <li>
+                    <a href="dashboard.html">Gráficos</a>
+                </li>
+
+                <li>
+                    <a href="../index.html">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <div class="janela">
 
-        <div class="header-left dash-header">
+        <!-- <div class="header-left dash-header">
 
             <h1>PokeMania</h1>
 
@@ -65,13 +96,13 @@ body {
                 <h3>Sair</h3>
             </div>
 
-        </div>
+        </div> -->
 
         <div class="dash">
-            <h1>Quiz Pokémon - Primeira Geração</h1>
-            <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+            <div><h1>Quiz Pokémon - Primeira Geração</h1></div>
+            <button id="btnIniciarQuiz" onclick="iniciarQuiz()" class="botao-dash">INICIAR QUIZ</button>
 
-            <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
+            <div id="pontuacao" class="flex-colunar width-fit-content border-primary" style="display: none;">
                 <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
                     <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
                     <span class="width-fit-content">Quantidade de erros: <span id="spanErradas"></span></span>
@@ -84,7 +115,7 @@ body {
                 </div>
             </div>
 
-            <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+            <div id="jogo" class="width-fit-content flex-colunar border-secondary" style="display: none;">
 
                 <div id="infoQuestao" class="padding-8">
                     <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span> questões.</span>
@@ -115,11 +146,10 @@ body {
                 </div>
             </div>
 
-            <div id="botoes" class="flex-colunar padding-8">
-                <button onclick="verificar()" id="btnVerificar">Verificar resposta</button>
-                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+            <div id="botoes" class="botoes">
+                <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao-dash">Tentar novamente</button>
+                <button onclick="avancar()" id="btnProx" class="botao-dash">Avançar para próxima questão</button>
                 <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
             </div>
 
             </div>
@@ -132,6 +162,8 @@ body {
 </body>
 
 <script>
+
+    var resultadosRespostas = [];
 
     const questoes = [
        {
@@ -216,12 +248,12 @@ body {
         alternativaCorreta: "alternativaB"
       },
       {
-        pergunta: "Qual objeto aparece no microfone da Jigglypuff quando ela canta?",
+        pergunta: "Qual destes Pokémon da primeira geração foi inspirado em um fóssil?",
         imagem: null,
-        alternativaA: "Togepi",
-        alternativaB: "Chansey",
-        alternativaC: "Clefairy",
-        alternativaD: "Pokébola",
+        alternativaA: "Aerodactyl",
+        alternativaB: "Kabuto",
+        alternativaC: "Omanyte",
+        alternativaD: "Todos os anteriores",
         alternativaCorreta: "alternativaD"
       }
     ];
@@ -245,13 +277,15 @@ body {
         document.getElementById('opcoes').style.display = "flex";
         document.getElementById('botoes').style.display = "flex";
         document.getElementById('qtdQuestoes').innerHTML = qtdQuestoes;
+       // document.getElementById('btnProx').style.display = "none";
+        //document.getElementById('btnTentarNovamente').style.display = "none";
 
         preencherHTMLcomQuestaoAtual(0);
 
-        btnVerificar.disabled = false;
-        btnProx.disabled = true;
-        // btnConcluir.disabled = true;
-        btnTentarNovamente.disabled = true;
+        // btnVerificar.disabled = false;
+        // btnProx.disabled = false;
+        // // btnConcluir.disabled = true;
+        // btnTentarNovamente.disabled = false;
 
         console.log(questoes)
     }
@@ -289,46 +323,29 @@ body {
 
     }
 
-     function verificar() {
-        const options = document.getElementsByName("option"); // recupera alternativas no html
+    //  function verificar() {
+    //     const options = document.getElementsByName("option"); // recupera alternativas no html
 
-        let hasChecked = false
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].checked) {
-                hasChecked = true
-                break
-            }
-        }
+    //     //document.getElementById('btnProx').style.display = "flex";
+    //     //document.getElementById('btnVerificar').style.display = "none";
 
-        if (!hasChecked) {
-            alert("Não há alternativas escolhidas. Escolha uma opção.")
-        } else {
-            btnVerificar.disabled = true
-            btnProx.disabled = false
+    //     let hasChecked = false
+    //     for (let i = 0; i < options.length; i++) {
+    //         if (options[i].checked) {
+    //             hasChecked = true
+    //             break
+    //         }
+    //     }
 
-            habilitarAlternativas(false)
+    //     if (!hasChecked) {
+    //         alert("Não há alternativas escolhidas. Escolha uma opção.")
+    //     } else {
 
-            checarResposta()
-        }
-    }
+    //         habilitarAlternativas(false)
 
-    function habilitarAlternativas(trueOrFalse) {
-        let opcaoEscolhida = trueOrFalse ? false : true
-
-        primeiraOpcao.disabled = opcaoEscolhida
-        segundaOpcao.disabled = opcaoEscolhida
-        terceiraOpcao.disabled = opcaoEscolhida
-        quartaOpcao.disabled = opcaoEscolhida
-
-    }
-
-    function limparCoresBackgroundOpcoes() {
-        const options = document.getElementsByName("option");
-        options.forEach((option) => {
-            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
-            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
-        })
-    }
+    //         checarResposta()
+    //     }
+    // }
 
     function desmarcarRadioButtons() {
         const options = document.getElementsByName("option");
@@ -338,59 +355,63 @@ body {
     }
 
     function checarResposta() {
-        const questaoAtual = questoes[numeroDaQuestaoAtual] // questão atual 
-        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+        const questaoAtual = questoes[numeroDaQuestaoAtual];
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta;
+        const options = document.getElementsByName("option");
 
-        const options = document.getElementsByName("option"); // recupera alternativas no html
-
-        let alternativaCorreta = null // variável para armazenar a alternativa correta
+        let alternativaCorreta = null;
 
         options.forEach((option) => {
             if (option.value === respostaQuestaoAtual) {
-                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
-                alternativaCorreta = option.labels[0].id
+                alternativaCorreta = option.labels[0].id;
             }
-        })
+        });
 
-        // verifica se resposta assinalada é correta
         options.forEach((option) => {
-            if (option.checked === true && option.value === respostaQuestaoAtual) {
-                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
-                pontuacaoFinal++
-                certas++
-                document.getElementById("spanCertas").innerHTML = certas
-                numeroDaQuestaoAtual++
+            if (option.checked && option.value === respostaQuestaoAtual) {
+                pontuacaoFinal++;
+                certas++;
+                resultadosRespostas.push(1);
+                document.getElementById("spanCertas").innerHTML = certas;
             } else if (option.checked && option.value !== respostaQuestaoAtual) {
-                const wrongLabelId = option.labels[0].id
-
-                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
-                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
-                tentativaIncorreta++
-                erradas++
-                document.getElementById("spanErradas").innerHTML = erradas
-                numeroDaQuestaoAtual++
+                erradas++;
+                tentativaIncorreta++;
+                resultadosRespostas.push(0);
+                document.getElementById("spanErradas").innerHTML = erradas;
             }
-        })
+        });
     }
+
 
     function avancar() {
-        btnProx.disabled = true
-        btnVerificar.disabled = false
+        const options = document.getElementsByName("option");
 
-        desmarcarRadioButtons()
-
-
-        if (numeroDaQuestaoAtual < qtdQuestoes - 1) {
-            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
-        } else if (numeroDaQuestaoAtual == qtdQuestoes - 1) {
-            alert("Atenção... a próxima é a ultima questão!")
-            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
-        } else {
-            finalizarJogo()
+        let hasChecked = false;
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+                hasChecked = true;
+                break;
+            }
         }
-        limparCoresBackgroundOpcoes()
-        console.log(certas)
-    }
+
+        if (!hasChecked) {
+            alert("Não há alternativas escolhidas. Escolha uma opção.");
+            return;
+        }
+
+        habilitarAlternativas(false);
+        checarResposta(); // avalia a resposta atual
+        desmarcarRadioButtons();
+
+        // Agora sim, avança para a próxima ou finaliza
+        numeroDaQuestaoAtual++;
+
+        if (numeroDaQuestaoAtual < qtdQuestoes) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+        } else {
+            finalizarJogo();
+        }
+    }   
 
     function finalizarJogo() {
         let textoParaMensagemFinal = null
@@ -399,30 +420,45 @@ body {
 
         if (porcentagemFinalDeAcertos <= 0.3) {
             textoParaMensagemFinal = "Parece que você não estudou..."
-            classComCoresParaMensagemFinal = "text-danger-with-bg"
         }
         else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
             textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
-            classComCoresParaMensagemFinal = "text-warning-with-bg"
         }
         else if (porcentagemFinalDeAcertos >= 0.9) {
             textoParaMensagemFinal = "Uau, parabéns!"
-            classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
         textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
 
 
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
-        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+        document.getElementById('pontuacao').style.display = "flex";
+        document.getElementById('jogo').style.display = "none";
+        document.getElementById('btnProx').style.display = "none";
 
-        document.getElementById('jogo').classList.add("text-new-gray") 
+        const idUsuario = sessionStorage.ID_USUARIO;
 
-        btnProx.disabled = true
-        btnVerificar.disabled = true
-        // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = false
+        fetch("/quiz/finalizar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idUsuario: idUsuario,
+                respostas: resultadosRespostas
+            }),
+        })
+        .then((resposta) => {
+            if (resposta.ok) {
+                alert("Resultados enviados com sucesso!");
+            } else {
+                alert("Erro ao enviar resultados.");
+            }
+        })
+        .catch((erro) => {
+            console.error("Erro na requisição:", erro);
+        });
 
     }
 
