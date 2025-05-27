@@ -22,7 +22,32 @@ function registrarRespostas(idQuiz, respostas) {
     return database.executar(instrucaoSql);
 }
 
+function obterResultados() {
+    let instrucao = `
+        SELECT 
+            SUM(CASE WHEN acertou = 1 THEN 1 ELSE 0 END) AS acertos,
+            SUM(CASE WHEN acertou = 0 THEN 1 ELSE 0 END) AS erros
+        FROM resposta_quiz;
+    `;
+    return database.executar(instrucao);
+}
+
+function buscarResultadoUsuario(idUsuario) {
+    const instrucao = `
+        SELECT 
+            SUM(CASE WHEN rq.acertou = 1 THEN 1 ELSE 0 END) AS acertos,
+            SUM(CASE WHEN rq.acertou = 0 THEN 1 ELSE 0 END) AS erros
+        FROM quiz q
+        JOIN resposta_quiz rq ON q.id = rq.fkQuiz
+        WHERE q.fkUsuario = ${idUsuario};
+    `;
+    console.log("Executando SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     registrarQuiz,
-    registrarRespostas
+    registrarRespostas,
+    obterResultados,
+    buscarResultadoUsuario
 };

@@ -22,6 +22,32 @@ function finalizarQuiz(req, res) {
     });
 }
 
+function obterResultados(req, res) {
+    quizModel.obterResultados()
+        .then(resultado => {
+            res.json(resultado);
+        })
+        .catch(erro => {
+            console.log(erro);
+            res.status(500).json({ erro: erro.sqlMessage });
+        });
+}
+
+async function obterResultadoUsuario(req, res) {
+    const idUsuario = req.params.idUsuario;
+
+    try {
+        const resultado = await quizModel.buscarResultadoUsuario(idUsuario);
+        res.json(resultado);
+    } catch (erro) {
+        console.error('Erro ao buscar resultado do usuário:', erro);
+        res.status(500).send('Erro ao buscar resultado do usuário');
+    }
+}
+
+
 module.exports = {
-    finalizarQuiz
+    finalizarQuiz,
+    obterResultados,
+    obterResultadoUsuario
 };

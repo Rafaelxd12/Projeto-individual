@@ -186,12 +186,13 @@ body {
 }
 
 .dash {
+  display: flex; 
+  justify-content: center; 
+  align-items: start; 
+  gap: 30px; 
   width: 100%;
-  /* position: relative;
-  top: 0;
-  left: 20%; */
   background-color: #161618;
-  height: 86vh;
+  height: 100vh;
 }
 
 .area-parametros-alerta {
