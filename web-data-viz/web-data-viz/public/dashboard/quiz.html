@@ -19,33 +19,6 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 </head>
-<style>
-body {
-    color: white;
-}
-
-.dash {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.flex-colunar {
-    display: flex;
-    flex-direction: column;
-}
-
-.botoes {
-    display: flex;
-    flex-direction: row;
-    margin: 20px;
-    display: none;
-    width: 350px;
-    justify-content: space-evenly;
-}
-
-</style>
 
 <body onload="validarSessao(), onloadEsconder()">
 
@@ -98,63 +71,64 @@ body {
 
         </div> -->
 
-        <div class="dash">
-            <div><h1>Quiz Pokémon - Primeira Geração</h1></div>
-            <button id="btnIniciarQuiz" onclick="iniciarQuiz()" class="botao-dash">INICIAR QUIZ</button>
+        <div class="containerQuiz">
+            <div class="quizBox">
+                <div><h1>Quiz Pokémon - Primeira Geração</h1></div>
+                <button id="btnIniciarQuiz" onclick="iniciarQuiz()" class="botao-dash">INICIAR QUIZ</button>
 
-            <div id="pontuacao" class="flex-colunar width-fit-content border-primary" style="display: none;">
-                <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
-                    <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
-                    <span class="width-fit-content">Quantidade de erros: <span id="spanErradas"></span></span>
+                <div id="pontuacao" class="flex-colunar width-fit-content border-primary" style="display: none;">
+                    <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+                        <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
+                        <span class="width-fit-content">Quantidade de erros: <span id="spanErradas"></span></span>
+                    </div>
+                    <div id="pontuacaoFinalJogo" class="flex-colunar padding-8">
+                        <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final:
+                            <span id="spanPontuacaoFinal">***</span>
+                        </span>
+                        <span id="msgFinal" class="width-fit-content">***</span>
+                    </div>
                 </div>
-                <div id="pontuacaoFinalJogo" class="flex-colunar padding-8">
-                    <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final:
-                        <span id="spanPontuacaoFinal">***</span>
-                    </span>
-                    <span id="msgFinal" class="width-fit-content">***</span>
+
+                <div id="jogo" class="width-fit-content flex-colunar border-secondary" style="display: none;">
+
+                    <div id="infoQuestao" class="padding-8">
+                        <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span> questões.</span>
+                    </div>
+
+                    <div id="questao" class="padding-8">
+                        <span id="spanQuestaoExibida" style="font-size: 18px; font-weight: bold;"></span>
+                        <img id="imagem" src="" alt="Imagem do Pokémon" style="width: 100px; height: 100px; filter: brightness(0);">
+                    </div>
+
+                    <div id="opcoes" class="flex-colunar padding-8">
+                        <span>
+                            <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
+                            <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+                        </span>
+                        <span>
+                            <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
+                            <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+                        </span>
+                        <span>
+                            <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
+                            <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+                        </span>
+                        <span>
+                            <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
+                            <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+                        </span>
+                    </div>
+                </div>
+
+                <div id="botoes" class="botoes">
+                    <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao-dash">Tentar novamente</button>
+                    <button onclick="avancar()" id="btnProx" class="botao-dash">Avançar para próxima questão</button>
+                    <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
+                </div>
+
                 </div>
             </div>
-
-            <div id="jogo" class="width-fit-content flex-colunar border-secondary" style="display: none;">
-
-                <div id="infoQuestao" class="padding-8">
-                    <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span> questões.</span>
-                </div>
-
-                <div id="questao" class="padding-8">
-                    <span id="spanQuestaoExibida" style="font-size: 18px; font-weight: bold;"></span>
-                    <img id="imagem" src="" alt="Imagem do Pokémon" style="width: 100px; height: 100px;">
-                </div>
-
-                <div id="opcoes" class="flex-colunar padding-8">
-                    <span>
-                        <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
-                        <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
-                    </span>
-                    <span>
-                        <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
-                        <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
-                    </span>
-                    <span>
-                        <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
-                        <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
-                    </span>
-                    <span>
-                        <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
-                        <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
-                    </span>
-                </div>
-            </div>
-
-            <div id="botoes" class="botoes">
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao-dash">Tentar novamente</button>
-                <button onclick="avancar()" id="btnProx" class="botao-dash">Avançar para próxima questão</button>
-                <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
-            </div>
-
-            </div>
-
-
+            
         </div>
 
     </div>
