@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: black;
+  background-color: white;
 }
 
 :root {
@@ -23,7 +23,7 @@ body {
 
 .header {
   height: var(--tamanho-header);
-  border-bottom: 2px solid #e3b062;
+  border-bottom: 2px solid red;
 }
 
 .header .container {
@@ -34,7 +34,7 @@ body {
 
 .header a {
   text-decoration: none;
-  color: #e3b062;
+  color: red;
 }
 
 .agora {
@@ -47,11 +47,11 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  color: #e3b062;
+  color: red;
 }
 
 .titulo {
-  color: #FFDA63;
+  color: red;
   width: fit-content;
   font-weight: 500;
 }
@@ -97,8 +97,8 @@ body {
 
 .cta-button {
   font-size: 17px;
-  background-color: #FFDA63;
-  color: black;
+  background-color: red;
+  color: white;
   padding: 12px 25px;
   border-radius: 25px;
   text-decoration: none;
@@ -110,8 +110,8 @@ body {
 }
 
 .cta-button:hover {
-  background-color:   black;
-  color: #FFDA63;
+  background-color:   white;
+  color: red;
   transform: translateY(-3px);
 }
 
