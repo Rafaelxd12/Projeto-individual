@@ -231,15 +231,17 @@ body {
   background-color: #212124;
 }
 
-.dash {
+.graficos {
   background-image: url('../assets/background-dash.jpg');
   background-size: cover;
+}
+
+.dash {
   display: flex; 
   justify-content: center; 
   align-items: start; 
   gap: 30px; 
   width: 100%;
-  background-color: #161618;
   height: 100vh;
 }
 
@@ -453,10 +455,11 @@ canvas {
 .quiz-grafico {
   width: 400px;
   margin: 40px auto;
-  background-color: #222;
+  background-color: #fff;
   padding: 20px;
   border-radius: 12px;
-  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  color: #222;
   text-align: center;
 }
 

@@ -25,7 +25,25 @@
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
+<style>
+.kpi-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
 
+.kpi-card {
+  background-color: #222;
+  color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  text-align: center;
+  min-width: 150px;
+  margin-top: 30px;
+}
+
+</style>
 <!-- <body onload=" atualizarFeed()"> -->
 <body>
 
@@ -83,16 +101,31 @@
             </div>
 
         </div> -->
-
-        <div class="dash">
-            <div class="quiz-grafico">
-                <h3>Resultado Geral do Quiz</h3>
-                <canvas id="graficoQuiz" width="400" height="400"></canvas>
-            </div>    
-            <div class="quiz-grafico">
-                <h3>Resultados Dos Seus Quizzes</h3>
-                <canvas id="graficoUsuario" width="400" height="400"></canvas>
-            </div> 
+        <div class="graficos">
+            <div class="kpi-container">
+                <div class="kpi-card">
+                    <h3>Total de Acertos</h3>
+                    <p>120</p>
+                </div>
+                <div class="kpi-card">
+                    <h3>Total de Erros</h3>
+                    <p>40</p> 
+                </div>          
+                <div class="kpi-card">
+                    <h3>Taxa de Acerto (%)</h3>
+                    <p>75%</p>
+                </div>
+            </div>            
+            <div class="dash">
+                <div class="quiz-grafico">
+                    <h3>Resultado Geral do Quiz</h3>
+                    <canvas id="graficoQuiz" width="400" height="400"></canvas>
+                </div>    
+                <div class="quiz-grafico">
+                    <h3>Resultados Dos Seus Quizzes</h3>
+                    <canvas id="graficoUsuario" width="400" height="400"></canvas>
+                </div> 
+            </div>
         </div>
     
 
@@ -352,7 +385,9 @@
                         labels: ['Acertos', 'Erros'],
                         datasets: [{
                             data: [acertos, erros],
-                            backgroundColor: ['#FFDA63', 'darkred']
+                            backgroundColor: ['#ADD8F6', '#FF8C00'], 
+                            borderColor: ['#000', '#000'],  
+                            borderWidth: 2
                         }]
                     },
                     options: {
@@ -387,7 +422,9 @@
                 labels: ['Acertos', 'Erros'],
                 datasets: [{
                     data: [acertos, erros],
-                    backgroundColor: ['#FFDA63', 'darkred'],
+                    backgroundColor: ['#ADD8F6', '#FF8C00'], 
+                    borderColor: ['#000', '#000'],  
+                    borderWidth: 2
                 }]
                 },
                 options: {
