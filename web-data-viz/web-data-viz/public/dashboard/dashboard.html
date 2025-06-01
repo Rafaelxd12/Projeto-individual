@@ -105,15 +105,15 @@
             <div class="kpi-container">
                 <div class="kpi-card">
                     <h3>Total de Acertos</h3>
-                    <p>120</p>
+                    <p id="total_acertos"></p>
                 </div>
                 <div class="kpi-card">
                     <h3>Total de Erros</h3>
-                    <p>40</p> 
+                    <p id="total_erros"></p> 
                 </div>          
                 <div class="kpi-card">
-                    <h3>Taxa de Acerto (%)</h3>
-                    <p>75%</p>
+                    <h3>Taxa Geral de Acerto (%)</h3>
+                    <p id="porcento_acetos"></p>
                 </div>
             </div>            
             <div class="dash">
@@ -138,7 +138,7 @@
     var usuarioId = sessionStorage.ID_USUARIO;
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    let proximaAtualizacao;
+    // let proximaAtualizacao;
 
     // window.onload = exibirAquariosDoUsuario();
 
@@ -448,9 +448,25 @@
 
     }
 
+    function carregarKPIQuiz() {
+        fetch("/quiz/resultados")
+            .then(res => res.json())
+            .then(dados => {
+                const acertos = dados[0].acertos;
+                const erros = dados[0].erros;
+                const total = Number(acertos) + Number(erros);
+                const porcentagemAcertos = total > 0 ? ((acertos / total) * 100).toFixed(1) : 0;
+
+                document.getElementById('total_acertos').innerText = acertos;
+                document.getElementById('total_erros').innerText = erros;
+                document.getElementById('porcento_acetos').innerText = `${porcentagemAcertos}%`;
+            });
+    }
+
 window.onload = () => {
     // exibirAquariosDoUsuario();
     carregarGraficoQuiz();
+    carregarKPIQuiz();
 };
 
 </script>
