@@ -466,6 +466,11 @@ canvas {
 .kpi-container {
   display: flex;
   gap: 20px;
+}
+
+.kpi-card-container {
+  display: flex;
+  width: 50%;
   justify-content: space-around;
 }
 

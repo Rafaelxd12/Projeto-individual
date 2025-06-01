@@ -84,19 +84,35 @@
         </div> -->
         <div class="graficos">
             <div class="kpi-container">
-                <div class="kpi-card">
-                    <h3>Total de Acertos</h3>
-                    <p id="total_acertos"></p>
+                <div class="kpi-card-container">
+                    <div class="kpi-card">
+                        <h3>Total de Acertos</h3>
+                        <p id="total_acertos"></p>
+                    </div>
+                    <div class="kpi-card">
+                        <h3>Total de Erros</h3>
+                        <p id="total_erros"></p> 
+                    </div>          
+                    <div class="kpi-card">
+                        <h3>Taxa Geral de Acerto (%)</h3>
+                        <p id="porcento_acetos"></p>
+                    </div>
                 </div>
-                <div class="kpi-card">
-                    <h3>Total de Erros</h3>
-                    <p id="total_erros"></p> 
-                </div>          
-                <div class="kpi-card">
-                    <h3>Taxa Geral de Acerto (%)</h3>
-                    <p id="porcento_acetos"></p>
+                <div class="kpi-card-container">
+                    <div class="kpi-card">
+                        <h3>Seus Acertos</h3>
+                        <p id="acertos_usuario"></p>
+                    </div>
+                    <div class="kpi-card">
+                        <h3>Seus Erros</h3>
+                        <p id="erros_usuario"></p> 
+                    </div>          
+                    <div class="kpi-card">
+                        <h3>Sua Precisão (%)</h3>
+                        <p id="porcento_acetos_usuario"></p>
+                    </div>
                 </div>
-            </div>            
+            </div>     
             <div class="dash">
                 <div class="quiz-grafico">
                     <h3>Resultado Geral do Quiz</h3>
@@ -441,6 +457,19 @@
                 document.getElementById('total_acertos').innerText = acertos;
                 document.getElementById('total_erros').innerText = erros;
                 document.getElementById('porcento_acetos').innerText = `${porcentagemAcertos}%`;
+            });
+
+        fetch(`/quiz/resultado-usuario/${usuarioId}`)
+            .then(res => res.json())
+            .then(dados => {
+                const acertos = dados[0].acertos;
+                const erros = dados[0].erros;
+                const total = Number(acertos) + Number(erros);
+                const porcentagemAcertos = total > 0 ? ((acertos / total) * 100).toFixed(1) : 0;
+
+                document.getElementById('acertos_usuario').innerText = acertos;
+                document.getElementById('erros_usuario').innerText = erros;
+                document.getElementById('porcento_acetos_usuario').innerText = `${porcentagemAcertos}%`;
             });
     }
 
