@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PokeMania | Página Inicial</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="icon" href="./assets/icon/favicon.ico">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+<style>
+.sobre-mim {
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.texto {
+  flex: 1;
+  line-height: 35px; 
+  font-family: 'Barlow', sans-serif;
+  color: #333;
+}
+
+.sobre-mim .imagem {
+  width: 200px; 
+  height: 200px;
+  border-radius: 50%; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin-right: 90px;
+}
+
+.sobre-mim .imagem img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover; 
+}
+.porque-pokemon {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.porque-pokemon h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.porque-pokemon p {
+  color: #555;
+  line-height: 1.6;
+}
+</style>
+
+<body>
+    <div class="header">
+      <div class="container">
+        <h1 class="titulo">PokeMania</h1>
+        <ul class="navbar">
+          <li>
+            <a href="index.html">Inicial</a>
+          </li>
+          <li>
+            <a href="pokedex.html">Pokedex</a>
+          </li>
+          <li  class="agora">
+            <a href="#">Sobre mim</a>
+          </li>     
+          <li>
+            <a href="login.html">Login</a>
+          </li>
+          <li>
+            <a href="cadastro.html">Cadastro</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <div>
+        <div class="sobre-mim">
+            <div class="texto">
+              <h2>Sobre Mim</h2>
+              <p>Olá! Meu nome é Rafael e sou apaixonado por Pokémon desde criança.<br> Sempre gostei de explorar o mundo dos jogos, assistir às séries e aprender curiosidades sobre cada Pokémon.</p>
+              <p>Criei este site para compartilhar minha paixão com outros fãs e proporcionar uma experiência divertida e nostálgica para todos que amam a Primeira Geração de Pokémon.</p>
+              <p>Espero que você se divirta explorando o conteúdo e testando seus conhecimentos no quiz!</p>
+            </div>
+            <div class="imagem">
+              <img src="./assets/Rafael.jpeg" alt="Minha Foto">
+            </div>
+        </div>
+        <div class="sobre-mim">
+            <div class="texto">
+                <h2>Por que escolhi Pokémon?</h2>
+                <p>Desde pequeno, sempre curti Pokémon, 
+                    e uma das melhores partes foi jogar o Pokémon TCG, 
+                    aquele jogo de cartas que todo mundo conhece. <br>
+                    Colecionava e participava de algumas competições, 
+                    mais pela diversão e pelo desafio mesmo. <br>
+                    Aqueles momentos me ensinaram bastante sobre paciência, 
+                    estratégia e como lidar com desafios.
+            </div>
+            <div>
+                <img src="./assets/PokemonTCG_logo.png" alt="Minha Foto" width="400px" height="auto">
+            </div>
+        </div>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-col">
+          <h3>PokeMania</h3>
+          <p>O PokeMania une treinadores e fãs para celebrar esse universo incrível.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Navegue</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Área do Cliente</h3>
+          <ul>
+            <li><a href="login.html">Entrar</a></li>
+            <li><a href="cadastro.html">Cadastre-se</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contato</h3>
+          <ul>
+            <li><b>Telefone:</b> +55(11) 4002-8922</li>
+            <li><b>E-mail:</b> pokemania@sptech.school</li>
+            <li><b>Endereço:</b> Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <div class="copyright">
+      <p>© 2025 PokeMania - Todos os direitos reservados</p>
+    </div>
+  </body>
+
+</html>

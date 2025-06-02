@@ -25,7 +25,12 @@
         <li>
           <a href="index.html">Inicial</a>
         </li>
-        <li class="agora">Pokedex</li>
+        <li class="agora">
+          <a href="#">Pokedex</a>
+        </li>
+        <li>
+          <a href="sobremim.html">Sobre mim</a>
+        </li>
         <li>
           <a href="login.html">Login</a>
         </li>
@@ -653,7 +658,7 @@
       <h2 id="nome"></h2>
       <p id="descricao"></p>
       <p id="curiosidade"></p>
-      <button id="closeBtn">Fechar</button>
+      <button onclick="closeBtn()" id="closeBtn">Fechar</button>
     </div>
   </div>
 
@@ -1632,10 +1637,11 @@ document.querySelectorAll('.pokemon-card').forEach(card => {
   });
 });
 
-// Adiciona funcionalidade para fechar a infoBox
-document.getElementById('closeBtn').addEventListener('click', () => {
+function closeBtn() {
   const infoBox = document.querySelector('.infoBox');
-  infoBox.style.display = 'none';
-});
+  infoBox.style.display = 'none';  // Esconde a infoBox
+  console.log("infoBox fechada!"); // Verificação no console
+}
+
 
 </script>
