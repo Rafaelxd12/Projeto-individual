@@ -346,12 +346,10 @@
                 pontuacaoFinal++;
                 certas++;
                 resultadosRespostas.push(1);
-                document.getElementById("spanCertas").innerHTML = certas;
             } else if (option.checked && option.value !== respostaQuestaoAtual) {
                 erradas++;
                 tentativaIncorreta++;
                 resultadosRespostas.push(0);
-                document.getElementById("spanErradas").innerHTML = erradas;
             }
         });
     }
@@ -408,6 +406,8 @@
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
         document.getElementById('pontuacao').style.display = "flex";
+        document.getElementById("spanCertas").innerHTML = certas;
+        document.getElementById("spanErradas").innerHTML = erradas;
         document.getElementById('jogo').style.display = "none";
         document.getElementById('btnProx').style.display = "none";
 
