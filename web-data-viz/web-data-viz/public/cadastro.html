@@ -93,10 +93,12 @@
         <h3>Navegue</h3>
         <ul>
           <li><a href="index.html">Home</a></li>
+          <li><a href="pokedex.html">Pokedex</a></li>
+          <li><a href="sobremim.html">Sobre mim</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h3>Área do Cliente</h3>
+        <h3>Área de Cadastro</h3>
         <ul>
           <li><a href="login.html">Entrar</a></li>
           <li><a href="cadastro.html">Cadastre-se</a></li>
@@ -141,7 +143,7 @@
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+        "(Verifique se há algum campo em branco)";
 
       finalizarAguardar();
       return false;
