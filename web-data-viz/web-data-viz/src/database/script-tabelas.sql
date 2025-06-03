@@ -31,4 +31,3 @@ CREATE TABLE resposta_quiz (
     FOREIGN KEY (fkQuiz) REFERENCES quiz(id)
 );
 
-select * from usuario;
