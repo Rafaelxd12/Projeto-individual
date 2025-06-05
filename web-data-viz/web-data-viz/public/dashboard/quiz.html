@@ -13,11 +13,6 @@
     <link rel="stylesheet" href="./../css/estilo.css" />
 
     <script src="../js/sessao.js"></script>
-    <script src="../js/alerta.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
 
     <style>
         body {
@@ -52,30 +47,6 @@
     </div>
 
     <div class="janela">
-
-        <!-- <div class="header-left dash-header">
-
-            <h1>PokeMania</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-
-            <div class="btn-nav">
-                <h3>Quiz</h3>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
-        </div> -->
 
         <div class="containerQuiz">
             <div class="quizBox">
@@ -129,7 +100,6 @@
                 <div id="botoes" class="botoes">
                     <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao-dash">Tentar novamente</button>
                     <button onclick="avancar()" id="btnProx" class="botao-dash">Avançar para próxima questão</button>
-                    <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
                 </div>
 
                 </div>
@@ -261,15 +231,8 @@
         document.getElementById('opcoes').style.display = "flex";
         document.getElementById('botoes').style.display = "flex";
         document.getElementById('qtdQuestoes').innerHTML = qtdQuestoes;
-       // document.getElementById('btnProx').style.display = "none";
-        //document.getElementById('btnTentarNovamente').style.display = "none";
 
         preencherHTMLcomQuestaoAtual(0);
-
-        // btnVerificar.disabled = false;
-        // btnProx.disabled = false;
-        // // btnConcluir.disabled = true;
-        // btnTentarNovamente.disabled = false;
 
         console.log(questoes)
     }
@@ -306,30 +269,6 @@
         quartaOpcao.disabled = opcaoEscolhida
 
     }
-
-    //  function verificar() {
-    //     const options = document.getElementsByName("option"); // recupera alternativas no html
-
-    //     //document.getElementById('btnProx').style.display = "flex";
-    //     //document.getElementById('btnVerificar').style.display = "none";
-
-    //     let hasChecked = false
-    //     for (let i = 0; i < options.length; i++) {
-    //         if (options[i].checked) {
-    //             hasChecked = true
-    //             break
-    //         }
-    //     }
-
-    //     if (!hasChecked) {
-    //         alert("Não há alternativas escolhidas. Escolha uma opção.")
-    //     } else {
-
-    //         habilitarAlternativas(false)
-
-    //         checarResposta()
-    //     }
-    // }
 
     function desmarcarRadioButtons() {
         const options = document.getElementsByName("option");
@@ -389,7 +328,6 @@
         checarResposta(); // avalia a resposta atual
         desmarcarRadioButtons();
 
-        // Agora sim, avança para a próxima ou finaliza
         numeroDaQuestaoAtual++;
 
         if (numeroDaQuestaoAtual < qtdQuestoes) {
@@ -449,7 +387,7 @@
                 cardErro.style.display = "none";
                 }, 5000);
                 cardErro.style.display = "block";
-                mensagem_erro.innerHTML = `(Erro ao enviar resultados.)`;
+                mensagem_erro.innerHTML = `Erro ao enviar resultados.`;
             }
         })
         .catch((erro) => {
